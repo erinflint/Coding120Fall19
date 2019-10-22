@@ -1,0 +1,89 @@
+<html>
+    <title>for Loops</title>
+    
+    <head>
+    <script>
+        var actualAnswer;
+        var number1;
+        var number2;
+        var correct = 0; // tally correct answers
+        var runs = 0; // tally questions asked
+        var avgScore = 0.0; // track overall score average
+        var totScore = 0.0; // track overall score for averaging
+
+        function printResults()
+        {
+          // calculate percentage by multiplying by 100.0 (not 100)
+          var percentage = (correct / 10) * 100.0
+          // Total runs divided by amount of runs per game
+          var gamesPlayed = runs / 10
+          // Tally up the running scores
+          totScore = totScore + percentage
+          avgScore = totScore / gamesPlayed
+          document.getElementById("finalResult").innerHTML = "Game: " +
+                            gamesPlayed + " You answered " + percentage +
+                            "% correctly. Running Average: " + avgScore + "%";
+        }
+        function printQuestion()
+        {
+            actualAnswer = number1 + number2;
+            document.getElementById("theQuestion").innerHTML = "What is " + number1 + "+" + number2 + "?";
+        }
+        function checkAnswer()
+        {
+            var answer = document.getElementById("txtAnswer").value;
+            if(answer == actualAnswer)
+            {
+                correct += 1
+            }
+            runs += 1
+            // runs count is always a step ahead, the remainder when dividing by 11 will equal the
+            // amount of questions answered during this game
+            document.getElementById("finalResult").innerHTML = "Answered " + (runs % 10) + " of 10";
+
+            runGame();
+
+        }
+
+        function runGame()
+        {
+
+            number1 = Math.floor(Math.random() * 10);
+            number2 = Math.floor(Math.random() * 10);
+
+            printQuestion();
+
+            // if the remainder of runs count divided by 10 is 0, the game has completed
+            if(((runs % 10) == 0) && runs != 0)
+            {
+              printResults();
+              correct = 0 // reset count for new game
+            }
+            
+        }
+    </script>
+    </head>
+    <body onload="runGame();">
+        <div id="theQuestion"></div>
+            <table>
+                <tr>
+                    <td>Your answer</td>
+                    <td><input type="text" id="txtAnswer"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button id="btnSubmit" onClick="checkAnswer();">Submit</button></td>
+                </tr>
+            </table>
+        <div id="finalResult"></div>
+    </body>
+    <script>
+            document.getElementById("txtAnswer")
+            .addEventListener("keyup", function(event) {
+                event.preventDefault();
+                if(event.keyCode == 13) {
+                    document.getElementById("btnSubmit").click();
+                }
+            });
+            </script>
+ </html>
+ 
