@@ -44,6 +44,12 @@ var x = 50;
       {
             fill(Math.floor(Math.random()*256),Math.floor(Math.random()*256),Math.floor(Math.random()*256));
             circle(myXs[i], myYs[i], myDiameters[i]);
+            myXs[i]+=3;
+            if  (myXs[i] >= 600)
+            {
+                myXs[i] = 0;
+            }
+
 
       }
       youWon();
